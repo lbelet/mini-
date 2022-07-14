@@ -7,9 +7,9 @@ char *ft_set_file(char **cmd, int *j, int i)
 	char *tmp;
 	char *infile;
 
-	if (cmd[i][*j + 1] != '<' && cmd[i][*j + 1])
+	if (cmd[i][*j + 2] != '<' && cmd[i][*j + 1])
 	{
-		*j = *j + 1;
+		*j = *j + 2;
 		start = *j;
 		len = 0;
 		while (cmd[i][*j] != '<' && cmd[i][*j] != '>' && cmd[i][*j])
@@ -33,6 +33,8 @@ void ft_files(char **cmd, int *fd, int *j, int *i)
 			ft_infile_nosplit(cmd, fd, j, *i);
 		else if (cmd[*i][*j + 1] != '<' && !cmd[*i][*j + 1] && cmd[*i + 1])
 			ft_infile_split(cmd, fd, i);
+		else if (cmd[*i][*j + 1] && cmd[*i][*j + 1] == '<')
+			ft_infile_tmp(cmd, fd, *i, j);
 	}
 	if (cmd[*i][*j] == '>')
 	{

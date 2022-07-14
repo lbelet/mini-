@@ -20,7 +20,6 @@
 #include <dirent.h>
 
 char **g_nos_variables;
-int g_test;
 
 void    display_prompt(int num);
 void    define_input_signals(void);
@@ -53,7 +52,7 @@ char **ft_parsing_quote(char *str);
 char **ft_split_modif(char *s, char c, int *code_caractere);
 int ft_cmd_error(char *path_cmd, char **cmd_infile, int *pid);
 int ft_check_builtins(char **cmd);
-int    ft_execute_inbuilt_fd(int fd_out, char **cmd_test);
+int    ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp);
 int ft_cd(char **cmd_test, char **envp);
 void ft_unset(char **cmd_test, char **args_in);
 int ft_env(char **envp, char **args_in);
@@ -95,5 +94,8 @@ void ft_close_fl(int k, int nbr_cmd, int **fd_pipe);
 char *ft_check_dollars(char *str, char **envp, int *code_caractere);
 char	*ft_strjoin_modif(char const *s1, char const s2);
 int ft_static(int i);
+void ft_files(char **cmd, int *fd, int *j, int *i);
+void ft_infile_tmp(char **cmd, int *fd, int i, int *j);
+int ft_write_tmp(int fd_out, char *str);
 
 #endif

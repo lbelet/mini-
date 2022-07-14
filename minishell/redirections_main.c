@@ -42,11 +42,11 @@ void ft_check_redir(int *fd, char **cmd, char **commande)
 				commande[k] = ft_set_cmd(cmd, &j, i, caractere);
 				k++;
 			}
-//			if ((cmd[i][j] == '<' || cmd[i][j] == '>') && caractere[j] == 6)
-//			{
-//				ft_files(cmd, fd, &j, &i);
-//				break;
-//			}
+			if ((cmd[i][j] == '<' || cmd[i][j] == '>') && caractere[j] == 6)
+			{
+				ft_files(cmd, fd, &j, &i);
+				break;
+			}
 			j++;	
 		}
 		free(caractere);

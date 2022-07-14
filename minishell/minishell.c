@@ -4,7 +4,6 @@ int ft_static(int i)
 {
     static int return_val = 0;
 
-
     if (i != 5)
         return_val = i;
     
@@ -39,7 +38,6 @@ int main(int argc, char **argv, char **envp)
     char *str;
     char **envp_copy;
 
-    g_test = 3;
     envp_copy = ft_malloc_tab(envp);
     ft_cpy_tab(envp, envp_copy);
     while (42)

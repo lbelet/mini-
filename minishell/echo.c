@@ -9,24 +9,35 @@ int ft_echo(char **cmd_test)
     j = 0;
     k = 0;
     i = 1;
+    if (!cmd_test[i])
+    {
+        printf("\n");
+        return (0);
+    }
     if (ft_strncmp(cmd_test[1], "-n", 2) == 0 && !cmd_test[1][2])
     {
         i = 2;
-        while (cmd_test[i] && cmd_test[i + 1])
+        if (cmd_test[2])
         {
-            printf("%s ", cmd_test[i]);
-            i++;
+            while (cmd_test[i] && cmd_test[i + 1])
+            {
+                printf("%s ", cmd_test[i]);
+                i++;
+            }
+            printf("%s", cmd_test[i]);
         }
-        printf("%s", cmd_test[i]);
     }
     else
     {
-        while (cmd_test[i] && cmd_test[i + 1])
+        if (cmd_test[1])
         {
-            printf("%s ", cmd_test[i]);
-            i++;
+            while (cmd_test[i] && cmd_test[i + 1])
+            {
+                printf("%s ", cmd_test[i]);
+                i++;
+            }
+            printf("%s\n", cmd_test[i]);
         }
-        printf("%s\n", cmd_test[i]);
     }
     return (EXIT_SUCCESS);
 }
@@ -57,5 +68,11 @@ int ft_echo_fd(int fd_out, char **cmd_test)
         write(fd_out, cmd_test[i], ft_strlen(cmd_test[i]));
         write(fd_out, "\n", 1);
     }
+    return (0);
+}
+
+int ft_write_tmp(int fd_out, char *str)
+{
+    write(fd_out, &str, ft_strlen(str));
     return (0);
 }

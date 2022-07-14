@@ -51,3 +51,44 @@ void ft_exec_in(int fd_in, char **commande, char **envp)
 	waitpid(pid, NULL, 0);
 	return;
 }
+
+void ft_infile_tmp(char **cmd, int *fd, int i, int *j)
+{
+//	char *file_tmp;
+	char *magic_word;
+	char *str_final;
+	char *str_tmp;
+	(void) fd;
+
+	if (fd[1] != 0)
+		close(fd[1]);
+	str_final = malloc(0);
+	magic_word = ft_set_file(cmd, j, i);
+	printf("magic: %s\n", magic_word);
+	ft_check_quote_simple(magic_word);
+	str_tmp = readline("> ");
+	str_final = ft_strjoin(str_final, str_tmp);
+	free(str_tmp);
+	while (ft_strcmp(magic_word, str_tmp) != 0)
+	{
+		str_tmp = readline("> ");
+		if(ft_strcmp(magic_word, str_tmp) != 0)
+		{
+			str_final = ft_strjoin(str_final, str_tmp);
+			printf("ici\n");
+			fd[1] = open("file_tmp", O_WRONLY | O_TRUNC | O_CREAT, 0666);
+			write (fd[1], str_final, ft_strlen(str_final));
+			free(str_final);
+			free(str_tmp);
+		}
+	}
+//	if (ft_strcmp(magic_word, str_tmp) == 0)
+//	{
+//		printf("ici\n");
+//		fd[1] = open("file_tmp", O_WRONLY | O_TRUNC | O_CREAT, 0666);
+//		write (fd[1], str_final, ft_strlen(str_final));
+//		free(str_final);
+		//free(str_tmp);
+//	}
+//	fd[0] = open(file_tmp, O_RDONLY)
+}

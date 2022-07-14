@@ -12,7 +12,7 @@ char *ft_tmp(char **envp, char *tmp_bis, int k)
 	(void) tmp_bis;
 
 	split = ft_split(envp[k], '=');
-	free (tmp_bis);
+	//free (tmp_bis);
 	return(ft_strdup(split[1]));
 }
 
@@ -25,7 +25,7 @@ char *ft_change_value(char *str, char **envp, int start, int len)
 	k = 0;
 	while (envp[k])
 	{
-		if (ft_strncmp(envp[k], tmp_bis, ft_strlen(tmp_bis) != 0))
+		if (ft_strcmp(envp[k], ft_tmp(envp, tmp_bis, k)) != 0)
 			k++;
 		else
 			return(ft_tmp(envp, tmp_bis, k));
@@ -47,12 +47,10 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 	tmp = malloc(0);
 	while (str[i])
 	{
-		if ((str[i] != '$' && str[i] != '?') || (str[i] == '$' && code_caractere[i] == 8))
+		if ((str[i] != '$' && str[i] != '?') || (str[i] == '$' && code_caractere[i] == 8) || (str[i] == '?' && str[i - 1] != '$') || (str[i] == '$' && !str[i + 1]))
 			tmp = ft_strjoin_modif(tmp, str[i]);
 		else if (str[i] == '$' && code_caractere[i] != 8 && str[i + 1] == '?')
-		{
 			tmp = ft_strjoin(tmp, ft_itoa(ft_static(5)));
-		}
 		else if(str[i] == '$' && code_caractere[i] != 8 && str[i + 1] != '?')
 		{
 			i++;
@@ -62,7 +60,7 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 			i--;
 			if (ft_change_value(str, envp, start, len) != NULL)
 				tmp = ft_strjoin(tmp, ft_change_value(str, envp, start, len));
-			else
+			else if (ft_change_value(str, g_nos_variables, start, len) != NULL)
 				tmp = ft_strjoin(tmp, ft_change_value(str, g_nos_variables, start, len));
 		}
 		i++;
