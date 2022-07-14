@@ -7,6 +7,7 @@ void    display_prompt(int num)
 	rl_on_new_line();
 //	rl_replace_line("", 0);
 	rl_redisplay();
+    ft_static(130);
 }
     
 void    define_input_signals(void)

@@ -47,8 +47,12 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 	tmp = malloc(0);
 	while (str[i])
 	{
-		if (str[i] != '$'  || (str[i] == '$' && code_caractere[i] == 8))
+		if ((str[i] != '$' && str[i] != '?') || (str[i] == '$' && code_caractere[i] == 8))
 			tmp = ft_strjoin_modif(tmp, str[i]);
+		else if (str[i] == '$' && code_caractere[i] != 8 && str[i + 1] == '?')
+		{
+			tmp = ft_strjoin(tmp, ft_itoa(ft_static(5)));
+		}
 		else if(str[i] == '$' && code_caractere[i] != 8 && str[i + 1] != '?')
 		{
 			i++;
@@ -60,10 +64,6 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 				tmp = ft_strjoin(tmp, ft_change_value(str, envp, start, len));
 			else
 				tmp = ft_strjoin(tmp, ft_change_value(str, g_nos_variables, start, len));
-		}
-		else if(str[i] == '$' && code_caractere[i] != 8 && str[i + 1] == '?')
-		{
-
 		}
 		i++;
 	}

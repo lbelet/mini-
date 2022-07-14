@@ -2,7 +2,7 @@
 
 void  ft_process_onlyone(char *path_cmd, char **cmd, char **envp)
 {
-  execve(path_cmd, cmd, envp);
+	execve(path_cmd, cmd, envp);
 }
 
 int ft_process_one_classic(char **cmd, char **envp)
@@ -13,18 +13,18 @@ int ft_process_one_classic(char **cmd, char **envp)
 	path_cmd = ft_path(cmd[0]);
 	if (ft_error(path_cmd, cmd) == 0)
 	{
-		printf("retour: %d\n", ft_static(1));
-		return (1);
+		ft_static(1);
+		return (0);
 	}
    	pid = fork();
     if (pid < 0)
        	return (0);
    	if (pid == 0)
 	{
-		ft_static(0);
         ft_process_onlyone(path_cmd, cmd, envp);
 	}
    	waitpid(pid, NULL, 0);
+	ft_static(0);
 	free(path_cmd);
 	return (0);
 }

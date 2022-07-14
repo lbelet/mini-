@@ -20,6 +20,7 @@
 #include <dirent.h>
 
 char **g_nos_variables;
+int g_test;
 
 void    display_prompt(int num);
 void    define_input_signals(void);
