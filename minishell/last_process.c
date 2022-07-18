@@ -33,9 +33,17 @@ void ft_last_process(int k, char **split_pipe, int *fd_redir, int **fd_pipe, cha
     split_space = ft_split_modif(split_pipe[i], ' ', ft_code_char(split_pipe[i]));
     commande = ft_malloc_tab(split_space);
     ft_check_redir(fd_redir, split_space, commande);
-    path_cmd = ft_path(commande[0]);
-//    if (ft_cmd_error(path_cmd, split_space, pid) == 0)
-//		return (0);
+	if (commande[0][0] != '/')
+	{
+		path_cmd = ft_path(commande[0]);
+		if (ft_error(path_cmd, commande) == 0)
+		{
+			ft_static(1);
+			return;
+		}
+	}
+	if (commande[0][0] == '/')
+		path_cmd = ft_absolute(commande);
     if (fd_redir[0] == 0 && fd_redir[1] == 0)
 	    ft_process_last(fd_pipe[k][0], fd_pipe[k][1], path_cmd, commande, envp);
     else if (fd_redir[0] > 0 && fd_redir[1] == 0)

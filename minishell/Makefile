@@ -32,7 +32,9 @@ SRC = minishell.c\
 		mid_process.c\
 		last_process.c\
 		close_fd.c\
-		dollar.c
+		dollar.c\
+		heredoc.c\
+		vodka.c
 
 OBJ = $(SRC:.c=.o)
 

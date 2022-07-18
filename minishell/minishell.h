@@ -95,7 +95,10 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere);
 char	*ft_strjoin_modif(char const *s1, char const s2);
 int ft_static(int i);
 void ft_files(char **cmd, int *fd, int *j, int *i);
-void ft_infile_tmp(char **cmd, int *fd, int i, int *j);
 int ft_write_tmp(int fd_out, char *str);
+void ft_infile_tmp(char **cmd, int *fd, int i, int *j);
+char *ft_absolute(char **cmd);
+void    ft_write_all(int fd_out, char **sorted);
+char    **ft_export_fd(int fd_out, char **cmd_test, char **envp, char **args);
 
 #endif

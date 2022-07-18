@@ -10,12 +10,17 @@ int ft_process_one_classic(char **cmd, char **envp)
 	int pid;
 	char *path_cmd;
 
-	path_cmd = ft_path(cmd[0]);
-	if (ft_error(path_cmd, cmd) == 0)
+	if (cmd[0][0] != '/')
 	{
-		ft_static(1);
-		return (0);
+		path_cmd = ft_path(cmd[0]);
+		if (ft_error(path_cmd, cmd) == 0)
+		{
+			ft_static(1);
+			return (0);
+		}
 	}
+	if (cmd[0][0] == '/')
+		path_cmd = ft_absolute(cmd);
    	pid = fork();
     if (pid < 0)
        	return (0);

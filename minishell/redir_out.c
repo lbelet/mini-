@@ -55,9 +55,17 @@ void ft_exec_out(int fd_out, char **commande, char **envp)
 	char *path;
 	int pid;
 
-	path = ft_path(commande[0]);
-	if (ft_error(path, commande) == 0)
-		return;
+	if (commande[0][0] != '/')
+	{
+		path = ft_path(commande[0]);
+		if (ft_error(path, commande) == 0)
+		{
+			ft_static(1);
+			return;
+		}
+	}
+	if (commande[0][0] == '/')
+		path = ft_absolute(commande);
 	pid = fork();
 	if (pid < 0)
 		return;

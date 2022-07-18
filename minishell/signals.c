@@ -2,6 +2,7 @@
 
 void    display_prompt(int num)
 {
+ //   (void) num;
     num++;
     write(1, "\n", 1);
 	rl_on_new_line();

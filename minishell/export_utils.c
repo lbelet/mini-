@@ -54,3 +54,17 @@ void    ft_printf_all(char **sorted)
         i++;
     }  
 }
+
+void    ft_write_all(int fd_out, char **sorted)
+{
+    int i;
+
+    i = 0;
+    while (sorted[i])
+    {
+        write(fd_out, "declare -x ", 11);
+        write(fd_out, sorted[i], ft_strlen(sorted[i]));
+        write(fd_out, "\n", 1);
+        i++;
+    }  
+}

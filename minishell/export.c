@@ -19,6 +19,25 @@ void ft_export_basic(char **envp, char **envp_sorted, char **args)
     }
 }
 
+void ft_export_basic_fd(int fd_out, char **envp, char **envp_sorted, char **args)
+{
+    int i;
+
+    i = 0;
+    while (envp[i])
+    {
+        envp_sorted[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    ft_sort_alpha(envp_sorted);
+    ft_write_all(fd_out, envp_sorted);
+    if (args)
+    {
+        ft_sort_alpha(args);
+        ft_write_all(fd_out, args);
+    }
+}
+
 void ft_export_new_args(char **cmd_test, char **new_args)
 {
     int i;
@@ -95,6 +114,35 @@ char    **ft_export(char **cmd_test, char **envp, char **args)
     if (ft_nbr_args(cmd_test) == 0)
     {
         ft_export_basic(envp, envp_sorted, args);
+    }
+    if (ft_nbr_args(cmd_test) > 0)
+    {
+        new_args = ft_malloc_var(cmd_test);
+        if (!new_args)
+            return NULL;
+        ft_export_new_args(cmd_test, new_args);
+        if (!args)
+        {
+            args = ft_malloc_tab(new_args);
+            ft_sort_new_args(new_args, args);
+        }
+        else if (args[0])
+            args = ft_sort_args(args, cmd_test);
+    }
+    return (args);
+}
+
+char    **ft_export_fd(int fd_out, char **cmd_test, char **envp, char **args)
+{
+    char **envp_sorted;
+    char **new_args;
+
+    envp_sorted = ft_malloc_tab(envp);
+    if (!envp_sorted)
+        return NULL;
+    if (ft_nbr_args(cmd_test) == 0)
+    {
+        ft_export_basic_fd(fd_out, envp, envp_sorted, args);
     }
     if (ft_nbr_args(cmd_test) > 0)
     {

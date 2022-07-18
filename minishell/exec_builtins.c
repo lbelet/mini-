@@ -41,16 +41,14 @@ void    ft_execute_inbuilt(char **cmd_test, char **envp)
 
 int ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
 {
-    (void) envp;
     if ((ft_strcmp(cmd_test[0], "echo")) == 0)
     {
         ft_echo_fd(fd_out, cmd_test);
         return (1);
     }
-    /*
-    if (ft_strcmp(cmd[0], "export") == 0)
-        return (export(cmd));
-    if (strncmp(cmd[0], "env", 3) == 0)
+    if (ft_strcmp(cmd_test[0], "export") == 0)
+        g_nos_variables = ft_export_fd(fd_out, cmd_test, envp, g_nos_variables);
+/*    if (strncmp(cmd[0], "env", 3) == 0)
     {
         env(&(cmd[0]));
         return (0);

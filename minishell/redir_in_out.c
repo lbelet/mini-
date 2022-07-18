@@ -34,7 +34,10 @@ void ft_files(char **cmd, int *fd, int *j, int *i)
 		else if (cmd[*i][*j + 1] != '<' && !cmd[*i][*j + 1] && cmd[*i + 1])
 			ft_infile_split(cmd, fd, i);
 		else if (cmd[*i][*j + 1] && cmd[*i][*j + 1] == '<')
+		{
+			*j = *j + 1;
 			ft_infile_tmp(cmd, fd, *i, j);
+		}
 	}
 	if (cmd[*i][*j] == '>')
 	{
@@ -55,9 +58,17 @@ void ft_exec_in_out(int *fd, char **commande, char **envp)
 	char *path;
 	int pid;
 
-	path = ft_path(commande[0]);
-	if (ft_error(path, commande) == 0)
-		return;
+	if (commande[0][0] != '/')
+	{
+		path = ft_path(commande[0]);
+		if (ft_error(path, commande) == 0)
+		{
+			ft_static(1);
+			return;
+		}
+	}
+	if (commande[0][0] == '/')
+		path = ft_absolute(commande);
 	pid = fork();
 	if (pid < 0)
 		return;

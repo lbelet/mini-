@@ -4,7 +4,17 @@ void  ft_process_middle_bis(int fd_in, int fd_out, char **cmd, char **envp)
 {
     char *path_cmd;
 
-    path_cmd = ft_path(cmd[0]);
+    if (cmd[0][0] != '/')
+	{
+		path_cmd = ft_path(cmd[0]);
+		if (ft_error(path_cmd, cmd) == 0)
+		{
+			ft_static(1);
+			return;
+		}
+	}
+	if (cmd[0][0] == '/')
+		path_cmd = ft_absolute(cmd);
     dup2(fd_in, STDIN_FILENO);
     dup2(fd_out, STDOUT_FILENO);
     close(fd_in);

@@ -51,11 +51,11 @@ int ft_echo_fd(int fd_out, char **cmd_test)
         i = 2;
         while (cmd_test[i] && cmd_test[i + 1])
         {
-            printf("%s ", cmd_test[i]);
+            write(fd_out, cmd_test[i], ft_strlen(cmd_test[i]));
+            write(fd_out, " ", 1);
             i++;
         }
-        printf("%s", cmd_test[i]);
-    }
+        write(fd_out, cmd_test[i], ft_strlen(cmd_test[i]));    }
     else
     {
         i = 1;
