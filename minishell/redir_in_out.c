@@ -9,7 +9,7 @@ char *ft_set_file(char **cmd, int *j, int i)
 
 	if (cmd[i][*j + 2] != '<' && cmd[i][*j + 1])
 	{
-		*j = *j + 2;
+		*j = *j + 1;
 		start = *j;
 		len = 0;
 		while (cmd[i][*j] != '<' && cmd[i][*j] != '>' && cmd[i][*j])

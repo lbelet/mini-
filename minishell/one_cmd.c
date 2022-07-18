@@ -43,7 +43,7 @@ void ft_one(char **split_pipe, char **envp)
     cmd = ft_split_modif(split_pipe[0], ' ', ft_code_char(split_pipe[0]));
 	commande = ft_malloc_tab(cmd);
 	ft_check_redir(fd, cmd, commande);
-	ft_execute_inbuilt_fd(fd[1], commande, envp);
+	ft_execute_inbuilt(commande, envp);
 	if (ft_check_builtins(commande) == 0)
 	{
 		printf("PAS BUILTIN!!!\n");
