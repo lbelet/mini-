@@ -39,19 +39,30 @@ void ft_one(char **split_pipe, char **envp)
 	char **cmd;
 	int *fd;
 	char **commande;
-	int i;
+//	int i;
 
-	i = 0;
+//	i = 0;
 	fd = malloc(2 * sizeof(int));
 	fd[0] = 0;
 	fd[1] = 0;
     cmd = ft_split_modif(split_pipe[0], ' ', ft_code_char(split_pipe[0]));
+//	while (cmd[i])
+//	{
+//		printf("cmd %d : %s\n", i, cmd[i]);
+//		i++;
+//	}
+//	i = 0;
 	commande = ft_malloc_tab(cmd);
 	ft_check_redir(fd, cmd, commande);
+//	while (commande[i])
+//	{
+//		printf("commande %d : %s\n", i, commande[i]);
+//		i++;
+//	}
 	ft_execute_inbuilt(commande, envp);
 	if (ft_check_builtins(commande) == 0)
 	{
-		printf("PAS BUILTIN!!!\n");
+//		printf("PAS BUILTIN!!!\n");
 		if (fd[0] > 0 && fd[1] > 0)
 			ft_exec_in_out(fd, commande, envp);
 		else if (fd[0] > 0 && fd[1] == 0)

@@ -44,7 +44,7 @@ int ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
     if ((ft_strcmp(cmd_test[0], "echo")) == 0)
     {
         ft_echo_fd(fd_out, cmd_test);
-        return (1);
+    //    exit(0);
     }
     if (ft_strcmp(cmd_test[0], "export") == 0)
         g_nos_variables = ft_export_fd(fd_out, cmd_test, envp, g_nos_variables);

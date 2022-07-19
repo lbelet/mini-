@@ -68,7 +68,7 @@ int ft_echo_fd(int fd_out, char **cmd_test)
         write(fd_out, cmd_test[i], ft_strlen(cmd_test[i]));
         write(fd_out, "\n", 1);
     }
-    return (0);
+    exit(0);
 }
 
 int ft_write_tmp(int fd_out, char *str)

@@ -15,6 +15,7 @@ char *ft_set_cmd(char **cmd, int *j, int i, int *code_caractere)
 		*j = *j + 1;
 	}
 	tmp = ft_substr(cmd[i], start, len);
+//	printf ("tmp = %s\n", tmp);
 	commande = ft_strdup(tmp);
 	free(tmp);
 	return (commande);
@@ -26,20 +27,22 @@ void ft_check_redir(int *fd, char **cmd, char **commande)
 	int i;
 	int j;
 	int k;
-    (void) fd;
 
 	j = 0;
 	i = 0;
 	k = 0;
 	while (cmd[i])
 	{	
+//		printf("cmd i = %s\n", cmd[i]);
 		caractere = ft_code_char(cmd[i]);
 		j = 0;
-		while (cmd[i][j])
+		while (cmd[i][j] != 0)
 		{
+//			printf("cmd %d %d = %c\n", i, j, cmd[i][j]);
 			if (((cmd[i][j] != '<' && cmd[i][j] != '>') || caractere[j] != 6) && cmd[i][j])
 			{
 				commande[k] = ft_set_cmd(cmd, &j, i, caractere);
+//				printf ("la commande k = %s\n", commande[k]);
 				k++;
 			}
 			if ((cmd[i][j] == '<' || cmd[i][j] == '>') && caractere[j] == 6)
@@ -47,7 +50,7 @@ void ft_check_redir(int *fd, char **cmd, char **commande)
 				ft_files(cmd, fd, &j, &i);
 				break;
 			}
-			j++;	
+			//j++;	
 		}
 		free(caractere);
 		i++;
@@ -56,8 +59,8 @@ void ft_check_redir(int *fd, char **cmd, char **commande)
 	i = 0;
 	while (commande[i])
 	{
-		ft_check_quote_simple(commande[i]);
-	//	printf("%s\n", commande[i]);
+		commande[i] = ft_check_quote_simple(commande[i]);
+//		printf("la commande est :%s\n", commande[i]);
 		i++;
 	}
 }

@@ -9,7 +9,7 @@ int ft_subopen_code_caractere(char  *str, int i)
     return (0);
 }
 
-void	ft_check_quote_simple(char *tab)
+char	*ft_check_quote_simple(char *tab)
 {
 	int code_quote;
 	int j;
@@ -33,6 +33,7 @@ void	ft_check_quote_simple(char *tab)
 	temp[k] = '\0';
 	free(tab);
     tab = ft_strdup(temp);
+	return (tab);
 }
 
 /*

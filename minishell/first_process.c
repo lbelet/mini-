@@ -57,10 +57,9 @@ void ft_first_process(char **split_pipe, int *fd_redir, int **fd_pipe, char **en
         split_space = ft_split_modif(split_pipe[i], ' ', ft_code_char(split_pipe[i]));
         commande = ft_malloc_tab(split_space);
         ft_check_redir(fd_redir, split_space, commande);
-       	ft_execute_inbuilt(commande, envp);
         if (ft_check_builtins(commande) == 0)
         {
-            printf("PAS BUILTIN\n");
+//            printf("PAS BUILTIN\n");
             if (fd_redir[0] > 0 && fd_redir[1] > 0)
             {
                 close (fd_pipe[k][0]);
@@ -81,6 +80,21 @@ void ft_first_process(char **split_pipe, int *fd_redir, int **fd_pipe, char **en
             }
 	    	else if (fd_redir[0] == 0 && fd_redir[1] == 0)
 		        ft_no_in_process(fd_pipe[k][0], fd_pipe[k][1], commande, envp);
+        }
+        else
+        {
+//            printf ("Builtin maison\n");
+            if (fd_redir[1] == 0)
+            {
+                close(fd_pipe[k][0]);
+           	    ft_execute_inbuilt_fd(fd_pipe[k][1], commande, envp);
+            }
+            else
+            {
+                close(fd_pipe[k][0]);
+                close(fd_pipe[k][1]);
+           	    ft_execute_inbuilt_fd(fd_redir[1], commande, envp);
+            }
         }
     }
 }

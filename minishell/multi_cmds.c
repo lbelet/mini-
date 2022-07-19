@@ -14,16 +14,6 @@ int ft_pipes(int **fd, int nbr_cmd)
     return (0);
 }
 
-// ======== ft_1er =========================================================
-
-// ======== ft_middle ==========================================================
-
-// ========= ft_last ===================================================================
-
-// ====== ft_close =============================================================
-
-// ====== ft_wait ========================================================
-
 void ft_waitpid_all(int nbr_cmd, int *pid)
 {
     int j;
@@ -35,8 +25,6 @@ void ft_waitpid_all(int nbr_cmd, int *pid)
 		j++;
 	}
 }
-
-// ===== ft_principal =====================================================
 
 int ft_pipex_multi(char **split_pipe, int nbr_cmd, char **envp)
 {
@@ -62,9 +50,11 @@ int ft_pipex_multi(char **split_pipe, int nbr_cmd, char **envp)
 		return (0);
 	if (pid[i] == 0)
     {
+//        printf("\n1er process\n");
         ft_close_fl(k, nbr_cmd, fd_pipe);
         ft_first_process(split_pipe, fd_redir, fd_pipe, envp);
     }
+    waitpid(pid[i], NULL, 0);
     i++;
     while (i < nbr_cmd - 1)
     {
@@ -73,9 +63,10 @@ int ft_pipex_multi(char **split_pipe, int nbr_cmd, char **envp)
 			return (0);
 		if (pid[i] == 0)
         {
+//            printf("\nmid process\n");
             ft_close_middle(k, nbr_cmd, fd_pipe);
             ft_middle_process(k, i, split_pipe, fd_redir, fd_pipe, envp);
-        }  
+        } 
         i++;
         k++;
     }
@@ -85,13 +76,15 @@ int ft_pipex_multi(char **split_pipe, int nbr_cmd, char **envp)
 		if (pid[i] < 0)
 			return (0);
 		if (pid[i] == 0)
-		{	        
+		{	 
+//            printf("\nlast process\n");       
             ft_close_fl(k, nbr_cmd, fd_pipe);
             ft_last_process(k, split_pipe, fd_redir, fd_pipe, envp);
 		}
     }
     ft_close_all(nbr_cmd, fd_pipe);
-    ft_waitpid_all(nbr_cmd, pid);
+    waitpid(pid[i], NULL, 0);
+//    ft_waitpid_all(nbr_cmd, pid);
     ft_free_tab_int(fd_pipe, pid, nbr_cmd);
     free(fd_redir);
     return (0);

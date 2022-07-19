@@ -75,7 +75,7 @@ int	ft_error(char *path_cmd, char **cmd_infile);
 void ft_exec_in(int fd_in, char **commande, char **envp);
 void ft_exec_in_out(int *fd, char **commande, char **envp);
 void ft_exec_out(int fd_out, char **commande, char **envp);
-void	ft_check_quote_simple(char *tab);
+char	*ft_check_quote_simple(char *tab);
 int *ft_code_char(char *str);
 char *ft_set_file(char **cmd, int *j, int i);
 void ft_error_fd(int fd, char *infile);
