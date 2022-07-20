@@ -17,9 +17,9 @@ void ft_exec_cmd(char *str, char **envp)
 	int nbr_cmd;
 
 	nbr_cmd = 0;
-//    printf("str avant dollar: %s\n", str);
+    printf("str avant dollar: %s\n", str);
     str = ft_check_dollars(str, envp, ft_code_char(str));
-//    printf("str apres dollar: %s\n", str);
+    printf("str apres dollar: %s\n", str);
 	code_caractere = ft_code_char(str);
     split_pipe = ft_split_modif(str, '|', code_caractere);
     while (split_pipe[nbr_cmd])

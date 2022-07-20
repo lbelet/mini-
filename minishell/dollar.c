@@ -67,28 +67,28 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 			tmp = ft_strjoin(tmp, ft_itoa(ft_static(5)));
 		else if(str[i] == '$' && code_caractere[i] != 8 && str[i + 1] != '?')
 		{
-//			printf("ici 1\n");
+			printf("ici 1\n");
 			i++;
 			start = i;
 			while (ft_isalnum(str[i]) == 1)
 				ft_increase(&i, &len);
-//			printf("ici 2\n");
+			printf("ici 2\n");
 			i--;
 			if (ft_change_value(str, envp, start, len) != NULL){
-//				printf("ici 3\n");
+				printf("ici 3\n");
 				tmp = ft_strjoin(tmp, ft_change_value(str, envp, start, len));
 			}
 			else if (ft_change_value(str, g_nos_variables, start, len) != NULL){
-//				printf("ici 4\n");
+				printf("ici 4\n");
 				tmp = ft_strjoin(tmp, ft_change_value(str, g_nos_variables, start, len));
 			}
 		}
 		i++;
 	}
-//	printf("ici 5\n");
+	printf("ici 5\n");
 	free (str);
 	str = ft_strdup(tmp);
-//	printf("ici 6\n");
+	printf("ici 6\n");
 	free(tmp);
 	return (str);
 }

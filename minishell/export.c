@@ -143,6 +143,7 @@ char    **ft_export_fd(int fd_out, char **cmd_test, char **envp, char **args)
     if (ft_nbr_args(cmd_test) == 0)
     {
         ft_export_basic_fd(fd_out, envp, envp_sorted, args);
+        exit (0);
     }
     if (ft_nbr_args(cmd_test) > 0)
     {

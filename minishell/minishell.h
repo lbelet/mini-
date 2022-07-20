@@ -100,5 +100,7 @@ void ft_infile_tmp(char **cmd, int *fd, int i, int *j);
 char *ft_absolute(char **cmd);
 void    ft_write_all(int fd_out, char **sorted);
 char    **ft_export_fd(int fd_out, char **cmd_test, char **envp, char **args);
+int ft_env_fd(int fd_out, char **envp, char **args_in);
+int    ft_pwd_fd(int fd_out);
 
 #endif

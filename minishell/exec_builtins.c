@@ -42,25 +42,18 @@ void    ft_execute_inbuilt(char **cmd_test, char **envp)
 int ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
 {
     if ((ft_strcmp(cmd_test[0], "echo")) == 0)
-    {
         ft_echo_fd(fd_out, cmd_test);
-    //    exit(0);
-    }
     if (ft_strcmp(cmd_test[0], "export") == 0)
         g_nos_variables = ft_export_fd(fd_out, cmd_test, envp, g_nos_variables);
-/*    if (strncmp(cmd[0], "env", 3) == 0)
-    {
-        env(&(cmd[0]));
-        return (0);
-    }
-    if (ft_strcmp(cmd[0], "cd") == 0)
-        return (cd(cmd));
-    if (ft_strcmp(cmd[0], "unset") == 0)
-        return (unset(cmd));
-    if (ft_strcmp(cmd[0], "pwd") == 0)
-        return (pwd());
-    if (ft_strcmp(cmd[0], "exit") == 0)
-        return (exit_inbuilt(cmd));
-     */
+    if (strcmp(cmd_test[0], "env") == 0)
+        ft_env_fd(fd_out, envp, g_nos_variables);
+    if (ft_strcmp(cmd_test[0], "cd") == 0)
+        ft_cd(cmd_test, envp);
+    if (ft_strcmp(cmd_test[0], "unset") == 0)
+        ft_unset(cmd_test, &(g_nos_variables[0]));
+    if (ft_strcmp(cmd_test[0], "pwd") == 0)
+        ft_pwd_fd(fd_out);
+    if (ft_strcmp(cmd_test[0], "exit") == 0)
+        ft_exit(&(cmd_test[0]));
    return (0);
 }
