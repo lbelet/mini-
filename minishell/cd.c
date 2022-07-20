@@ -56,10 +56,22 @@ int ft_cd(char **cmd_test, char **envp)
     cwdbis = NULL;
     copy_env = ft_env_copy(envp);
     cwd = getcwd(cwd, 0);
-    if (cmd_test[1])
-        chdir(cmd_test[1]);
-    else if (!cmd_test[1])
-        chdir("/Users/lbelet");
+    if ((cmd_test[1] && cmd_test[1][0] != '~') || 
+        (cmd_test[1] && cmd_test[1][0] == '~' && cmd_test[1][1]))
+    {
+        printf("ici\n");
+        i = chdir(cmd_test[1]);
+    }
+    else if (!cmd_test[1] || (cmd_test[1][0] == '~' && !cmd_test[1][1]))
+    {   
+        printf("la\n");
+        i = chdir("/Users/lbelet");
+    }
+    if (i != 0)
+    {
+        printf("ERROR !!!!\n");
+        return (0);
+    }
     cwdbis = getcwd(cwdbis, 0);
     ft_replace_pwd(copy_env, cwd, cwdbis);
     i = 0;

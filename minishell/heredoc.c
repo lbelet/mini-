@@ -7,7 +7,7 @@ char *ft_set_magic_word(char **cmd, int *j, int i)
 	char *tmp;
 	char *infile;
 
-	if (cmd[i][*j + 2] != '<' && cmd[i][*j + 1])
+	if (cmd[i][*j + 1] != '<' && cmd[i][*j + 1])
 	{
 		*j = *j + 1;
 		start = *j;
@@ -21,6 +21,10 @@ char *ft_set_magic_word(char **cmd, int *j, int i)
 		infile = ft_strdup(tmp);
 		free(tmp);
 		return (infile);
+	}
+	if (cmd[i][*j + 1] != '<' && !cmd[i][*j + 1])
+	{
+		
 	}
 	return (NULL);
 }

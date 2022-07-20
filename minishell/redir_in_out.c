@@ -29,6 +29,7 @@ void ft_files(char **cmd, int *fd, int *j, int *i)
 {
 	if (cmd[*i][*j] == '<')
 	{
+		
 		if (cmd[*i][*j + 1] != '<' && cmd[*i][*j + 1])
 			ft_infile_nosplit(cmd, fd, j, *i);
 		else if (cmd[*i][*j + 1] != '<' && !cmd[*i][*j + 1] && cmd[*i + 1])

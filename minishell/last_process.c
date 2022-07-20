@@ -33,33 +33,42 @@ void ft_last_process(int k, char **split_pipe, int *fd_redir, int **fd_pipe, cha
     split_space = ft_split_modif(split_pipe[i], ' ', ft_code_char(split_pipe[i]));
     commande = ft_malloc_tab(split_space);
     ft_check_redir(fd_redir, split_space, commande);
-	if (commande[0][0] != '/')
-	{
-		path_cmd = ft_path(commande[0]);
-		if (ft_error(path_cmd, commande) == 0)
-		{
-			ft_static(1);
-			return;
-		}
-	}
-	if (commande[0][0] == '/')
-		path_cmd = ft_absolute(commande);
-    if (fd_redir[0] == 0 && fd_redir[1] == 0)
-	    ft_process_last(fd_pipe[k][0], fd_pipe[k][1], path_cmd, commande, envp);
-    else if (fd_redir[0] > 0 && fd_redir[1] == 0)
+    if (ft_check_builtins(commande) == 0)
     {
-        close(fd_pipe[k][0]);
-        ft_process_last(fd_redir[0], fd_pipe[k][1], path_cmd, commande, envp);
+      path_cmd = ft_error_cmd(commande);
+      if (fd_redir[0] == 0 && fd_redir[1] == 0)
+        ft_process_last(fd_pipe[k][0], fd_pipe[k][1], path_cmd, commande, envp);
+      else if (fd_redir[0] > 0 && fd_redir[1] == 0)
+      {
+          close(fd_pipe[k][0]);
+          ft_process_last(fd_redir[0], fd_pipe[k][1], path_cmd, commande, envp);
+      }
+      else if (fd_redir[0] == 0 && fd_redir[1] > 0)
+      {
+          close(fd_pipe[k][1]);
+          ft_process_last_out(fd_pipe[k][0], fd_redir[1], path_cmd, commande, envp);
+      }
+      else if (fd_redir[0] > 0 && fd_redir[1] > 1)
+      {
+          close(fd_pipe[k][0]);
+          close(fd_pipe[k][1]);
+          ft_process_last_out(fd_redir[0], fd_redir[1], path_cmd, commande, envp);
+      }
     }
-    else if (fd_redir[0] == 0 && fd_redir[1] > 0)
-    {
-        close(fd_pipe[k][1]);
-	    ft_process_last_out(fd_pipe[k][0], fd_redir[1], path_cmd, commande, envp);
-    }
-    else if (fd_redir[0] > 0 && fd_redir[1] > 1)
-    {
-        close(fd_pipe[k][0]);
-        close(fd_pipe[k][1]);
-        ft_process_last_out(fd_redir[0], fd_redir[1], path_cmd, commande, envp);
-    }
+    else
+        {
+            printf ("Builtin maison\n");
+            if (fd_redir[1] == 0)
+            {
+                close(fd_pipe[k][0]);
+                close(fd_pipe[k][1]);
+           	    ft_execute_inbuilt_fd(0, commande, envp);
+            }
+            else
+            {
+                close(fd_pipe[k][0]);
+                close(fd_pipe[k][1]);
+           	    ft_execute_inbuilt_fd(fd_redir[1], commande, envp);
+            }
+        }
 }

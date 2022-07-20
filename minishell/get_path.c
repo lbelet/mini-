@@ -29,7 +29,10 @@ char *ft_path(char *str)
             free(path_cmd_final);
             i++;
             if (!tab_path[i])
+            {
+                ft_free_tab_simple(tab_path);
                 return ("ERROR");
+            }
         }
         else
             break;

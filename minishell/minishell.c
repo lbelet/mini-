@@ -17,9 +17,9 @@ void ft_exec_cmd(char *str, char **envp)
 	int nbr_cmd;
 
 	nbr_cmd = 0;
-    printf("str avant dollar: %s\n", str);
-    str = ft_check_dollars(str, envp, ft_code_char(str));
-    printf("str apres dollar: %s\n", str);
+    code_caractere = ft_code_char(str);
+    str = ft_check_dollars(str, envp, code_caractere);
+    free(code_caractere);
 	code_caractere = ft_code_char(str);
     split_pipe = ft_split_modif(str, '|', code_caractere);
     while (split_pipe[nbr_cmd])
@@ -30,28 +30,41 @@ void ft_exec_cmd(char *str, char **envp)
         ft_pipex_multi(split_pipe, nbr_cmd, envp);
 	ft_free_tab_simple(split_pipe);
     free(str);
+    free(code_caractere);
 }
-
+/*
+int	ft_init(struct termios *sig)
+{
+	init_signals(sig);
+	return (0);
+}*/
 
 int main(int argc, char **argv, char **envp)
 {
-    (void)argc;
     (void)argv;
     char *str;
     char **envp_copy;
+//    struct termios sig;
+    
 
     envp_copy = ft_malloc_tab(envp);
     ft_cpy_tab(envp, envp_copy);
-    while (42)
+    handle_global_signals();
+    if (argc == 1)
     {
-        define_input_signals();
-        str = readline("prompt> ");
-        if (str == NULL)//CTRL+D
-            break;
-        add_history(str);
-		ft_exec_cmd(str, envp_copy);
-		//free(str);      
+        while (42)
+        {
+            str = readline("prompt> ");
+            if (str == NULL)//CTRL+D
+                break;
+            add_history(str);
+		    ft_exec_cmd(str, envp_copy);
+		    //free(str);      
+        }
+//   		tcsetattr(STDIN_FILENO, TCSANOW, &sig);
     }
+    else
+        printf("ERROR! IN YOUR FACE!!!\n");
     ft_free_tab_simple(envp_copy);
     return (0);
 }

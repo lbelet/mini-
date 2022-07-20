@@ -39,7 +39,7 @@ void    ft_execute_inbuilt(char **cmd_test, char **envp)
         ft_exit(&(cmd_test[0]));
 }
 
-int ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
+void ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
 {
     if ((ft_strcmp(cmd_test[0], "echo")) == 0)
         ft_echo_fd(fd_out, cmd_test);
@@ -55,5 +55,4 @@ int ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp)
         ft_pwd_fd(fd_out);
     if (ft_strcmp(cmd_test[0], "exit") == 0)
         ft_exit(&(cmd_test[0]));
-   return (0);
 }

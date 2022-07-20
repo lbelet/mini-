@@ -4,17 +4,7 @@ void  ft_no_in_process(int fd_in, int fd_out, char **cmd, char **envp)
 {
     char *path_cmd;
 
-	if (cmd[0][0] != '/')
-	{
-		path_cmd = ft_path(cmd[0]);
-		if (ft_error(path_cmd, cmd) == 0)
-		{
-			ft_static(1);
-			return;
-		}
-	}
-	if (cmd[0][0] == '/')
-		path_cmd = ft_absolute(cmd);
+	path_cmd = ft_error_cmd(cmd);
     dup2(fd_out, STDOUT_FILENO);
     close(fd_in);
     close(fd_out);
@@ -25,17 +15,7 @@ void  ft_in_process(int fd_in, int fd_out, char **cmd, char **envp)
 {
     char *path_cmd;
 
-	if (cmd[0][0] != '/')
-	{
-		path_cmd = ft_path(cmd[0]);
-		if (ft_error(path_cmd, cmd) == 0)
-		{
-			ft_static(1);
-			return;
-		}
-	}
-	if (cmd[0][0] == '/')
-		path_cmd = ft_absolute(cmd);
+	path_cmd = ft_error_cmd(cmd);
     dup2(fd_out, STDOUT_FILENO);
     dup2(fd_in, STDIN_FILENO);
     close(fd_in);
@@ -83,7 +63,7 @@ void ft_first_process(char **split_pipe, int *fd_redir, int **fd_pipe, char **en
         }
         else
         {
-//            printf ("Builtin maison\n");
+            printf ("Builtin maison\n");
             if (fd_redir[1] == 0)
             {
                 close(fd_pipe[k][0]);

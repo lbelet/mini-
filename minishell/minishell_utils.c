@@ -12,7 +12,7 @@ void ft_cpy_tab(char **original, char **copy)
     }
 }
 
-char	*ft_strjoin_modif(char const *s1, char const s2)
+char	*ft_strjoin_modif(char *s1, char const s2)
 {
 	char	*dst;
 	int		i;
@@ -38,5 +38,6 @@ char	*ft_strjoin_modif(char const *s1, char const s2)
 		dst[i] = s2;
 		dst[i + 1] = '\0';
 	}
+	free(s1);
 	return (dst);
 }

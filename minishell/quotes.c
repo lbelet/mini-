@@ -14,8 +14,9 @@ char	*ft_check_quote_simple(char *tab)
 	int code_quote;
 	int j;
 	int k;
-	char temp[200] = {0};
+	char *temp;
 
+	temp = malloc(200 * sizeof(char));
 	j = 0;
 	code_quote = 0;
 	k = 0;
@@ -33,6 +34,7 @@ char	*ft_check_quote_simple(char *tab)
 	temp[k] = '\0';
 	free(tab);
     tab = ft_strdup(temp);
+	free(temp);
 	return (tab);
 }
 

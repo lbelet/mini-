@@ -7,6 +7,7 @@ void ft_infile_nosplit(char **cmd, int *fd, int *j, int i)
 	if (fd[0] != 0)
 		close(fd[0]);
 	infile = ft_set_file(cmd, j, i);
+	printf("infile = %s\n", infile);
 	ft_check_quote_simple(infile);
 	fd[0] = open(infile, O_RDONLY);
 	ft_error_fd(fd[0], infile);
@@ -33,17 +34,7 @@ void ft_exec_in(int fd_in, char **commande, char **envp)
 	char *path;
 	int pid;
 
-	if (commande[0][0] != '/')
-	{
-		path = ft_path(commande[0]);
-		if (ft_error(path, commande) == 0)
-		{
-			ft_static(1);
-			return;
-		}
-	}
-	if (commande[0][0] == '/')
-		path = ft_absolute(commande);
+	path = ft_error_cmd(commande);
 	pid = fork();
 	if (pid < 0)
 		return;

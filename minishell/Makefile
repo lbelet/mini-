@@ -6,7 +6,7 @@ NAME = minishell
 SRC = minishell.c\
 		get_path.c\
 		split_modif.c\
-		signals.c\
+		signal_test2.c\
 		exec_builtins.c\
 		one_cmd.c\
 		multi_cmds.c\

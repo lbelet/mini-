@@ -18,6 +18,7 @@
 #include <signal.h>
 #include <limits.h>
 #include <dirent.h>
+#include <termios.h>
 
 char **g_nos_variables;
 
@@ -52,7 +53,7 @@ char **ft_parsing_quote(char *str);
 char **ft_split_modif(char *s, char c, int *code_caractere);
 int ft_cmd_error(char *path_cmd, char **cmd_infile, int *pid);
 int ft_check_builtins(char **cmd);
-int    ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp);
+void    ft_execute_inbuilt_fd(int fd_out, char **cmd_test, char **envp);
 int ft_cd(char **cmd_test, char **envp);
 void ft_unset(char **cmd_test, char **args_in);
 int ft_env(char **envp, char **args_in);
@@ -92,7 +93,7 @@ void ft_close_middle(int k, int nbr_cmd, int **fd_pipe);
 void ft_close_all(int nbr_cmd, int **fd_pipe);
 void ft_close_fl(int k, int nbr_cmd, int **fd_pipe);
 char *ft_check_dollars(char *str, char **envp, int *code_caractere);
-char	*ft_strjoin_modif(char const *s1, char const s2);
+char	*ft_strjoin_modif(char *s1, char const s2);
 int ft_static(int i);
 void ft_files(char **cmd, int *fd, int *j, int *i);
 int ft_write_tmp(int fd_out, char *str);
@@ -102,5 +103,8 @@ void    ft_write_all(int fd_out, char **sorted);
 char    **ft_export_fd(int fd_out, char **cmd_test, char **envp, char **args);
 int ft_env_fd(int fd_out, char **envp, char **args_in);
 int    ft_pwd_fd(int fd_out);
+char *ft_error_cmd(char **cmd);
+//void init_signals(struct termios *sig);
+void	handle_global_signals(void);
 
 #endif

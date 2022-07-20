@@ -70,7 +70,7 @@ char *ft_check_dollars(char *str, char **envp, int *code_caractere)
 			printf("ici 1\n");
 			i++;
 			start = i;
-			while (ft_isalnum(str[i]) == 1)
+			while (ft_isalnum(str[i]) == 1 || str[i] == '|')
 				ft_increase(&i, &len);
 			printf("ici 2\n");
 			i--;
