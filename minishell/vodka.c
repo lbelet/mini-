@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void ft_cmd_path(char **cmd)
+char *ft_cmd_path(char **cmd)
 {
 	char **tmp;
 	int i;
@@ -11,7 +11,8 @@ void ft_cmd_path(char **cmd)
 	while (tmp[i])
 		i++;
 	cmd[0] = ft_strdup(tmp[i - 1]);
-	free(tmp);
+	ft_free_tab_simple(tmp);
+	return (cmd[0]);
 }
 
 char *ft_absolute(char **cmd)

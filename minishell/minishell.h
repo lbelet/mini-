@@ -69,7 +69,7 @@ void    ft_sort_alpha(char **sorted);
 void    ft_printf_all(char **sorted);
 void	ft_free_tab_simple(char **tab);
 int ft_subopen_code_caractere(char  *str, int i);
-void ft_check_redir(int *fd, char **cmd, char **commande);
+char **ft_check_redir(int *fd, char **cmd, char **commande);
 int ft_pipex_multi(char **split_pipe, int nbr_cmd, char **envp);
 void ft_cpy_tab(char **original, char **copy);
 int	ft_error(char *path_cmd, char **cmd_infile);
@@ -106,5 +106,6 @@ int    ft_pwd_fd(int fd_out);
 char *ft_error_cmd(char **cmd);
 //void init_signals(struct termios *sig);
 void	handle_global_signals(void);
+char *ft_cmd_path(char **cmd);
 
 #endif

@@ -23,9 +23,11 @@ int ft_process_one_classic(char **cmd, char **envp)
 	if (cmd[0][0] == '/')
     {
 		path_cmd = ft_absolute(cmd);
+		cmd[0] = ft_cmd_path(cmd);
         check_path = ft_path(cmd[0]);
         if (ft_strcmp(path_cmd, check_path) != 0)
         {
+			printf("Command %s not found\n", path_cmd);
 			free(path_cmd);
             ft_static(1);
             return (1);
@@ -66,7 +68,7 @@ void ft_one(char **split_pipe, char **envp)
 //	}
 //	i = 0;
 	commande = ft_malloc_tab(cmd);
-	ft_check_redir(fd, cmd, commande);
+	commande = ft_check_redir(fd, cmd, commande);
 //	while (commande[i])
 //	{
 //		printf("commande %d : %s\n", i, commande[i]);
@@ -91,8 +93,9 @@ void ft_one(char **split_pipe, char **envp)
 		pid = fork();
 		if (pid == 0)
 			ft_execute_inbuilt_fd(fd[1], commande, envp);
+		ft_free_tab_simple(commande);
 		waitpid(pid, NULL, 0);
 	}
-		ft_free_tab_simple(cmd);
-		free(fd);
+	ft_free_tab_simple(cmd);
+	free(fd);
 }

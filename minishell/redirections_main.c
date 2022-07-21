@@ -21,7 +21,7 @@ char *ft_set_cmd(char **cmd, int *j, int i, int *code_caractere)
 	return (commande);
 }
 
-void ft_check_redir(int *fd, char **cmd, char **commande)
+char **ft_check_redir(int *fd, char **cmd, char **commande)
 {
 	int *caractere;
 	int i;
@@ -63,4 +63,5 @@ void ft_check_redir(int *fd, char **cmd, char **commande)
 //		printf("la commande est :%s\n", commande[i]);
 		i++;
 	}
+	return (commande);
 }

@@ -38,7 +38,7 @@ void ft_infile_tmp(char **cmd, int *fd, int i, int *j)
 	char *infile;
 
 	infile = ".tmp_file";
-	str_final = malloc(0);
+	str_final = NULL;
 	magic_word = ft_set_magic_word(cmd, j, i);
 //	printf("magic: %s\n", magic_word);
 	fd_tmp = open(infile, O_RDWR | O_TRUNC | O_CREAT, 0666);
@@ -47,8 +47,10 @@ void ft_infile_tmp(char **cmd, int *fd, int i, int *j)
 		str_tmp = readline("> ");
 		if (ft_strcmp(str_tmp, magic_word) != 0)
 		{
-			str_final = ft_strjoin(str_final, str_tmp);
-			str_final = ft_strjoin_modif(str_final, '\n');
+			char *tmp;
+			tmp = ft_strjoin(str_final, str_tmp);
+			str_final = ft_strjoin_modif(tmp, '\n');
+		//	free(tmp);
 //			printf("str_tmp: %s\n", str_tmp);
 //			printf("str_final:\n%s", str_final);
 		}
@@ -59,10 +61,13 @@ void ft_infile_tmp(char **cmd, int *fd, int i, int *j)
 			close (fd_tmp);
 			break;
 		}
+		free (str_tmp);
 	}
-//	printf("ici\n");
+	free(str_tmp);
 	if (fd[0] != 0)
 		close(fd[0]);
 	fd[0] = open(infile, O_RDONLY);
 	*j += (ft_strlen(magic_word) + 1);
+	free(magic_word);
+	free(str_final);
 }

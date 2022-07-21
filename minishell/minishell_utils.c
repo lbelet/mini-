@@ -20,7 +20,14 @@ char	*ft_strjoin_modif(char *s1, char const s2)
 
 	i = 0;
 	j = 0;
-	dst = malloc(ft_strlen(s1) + 2);
+	if (!s1)
+	{
+		dst = malloc(2);
+		dst[0] = s2;
+		dst[1] = '\0';
+		return (dst);
+	}
+	dst = malloc(ft_strlen(s1) + 1);
 	if (!dst)
 		return (NULL);
 	while (s1[i])
@@ -28,16 +35,8 @@ char	*ft_strjoin_modif(char *s1, char const s2)
 		dst[i] = s1[i];
 		i++;
 	}
-	if (!s1)
-	{
-		dst[0] = s2;
-		dst[1] = '\0';
-	}
-	else
-	{
-		dst[i] = s2;
-		dst[i + 1] = '\0';
-	}
+	dst[i] = s2;
+	dst[i + 1] = '\0';
 	free(s1);
 	return (dst);
 }
